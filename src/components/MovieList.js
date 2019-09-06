@@ -77,8 +77,6 @@ let movies = [
   },
 ];
 
-movies = [];
-
 const MovieList = () => {
   if (movies.length === 0)
     return (
