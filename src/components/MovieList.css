@@ -1,3 +1,10 @@
+.empty {
+	height: 90vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
 ul {
 	list-style-type: none;
 	width: 100%;
@@ -10,7 +17,7 @@ li {
 
 li > a {
 	display: flex;
-	padding: 1rem;
+	padding: 0.75rem;
 	margin: 0.5rem;
 	border-radius: 0.5rem;
 	box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.5);

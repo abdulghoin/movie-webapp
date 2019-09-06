@@ -77,20 +77,27 @@ let movies = [
   },
 ];
 
+movies = [];
+
 const MovieList = () => {
-  if (movies.length === 0) return <p>Search your movie</p>;
+  if (movies.length === 0)
+    return (
+      <div className="empty">
+        <span>Search your movie</span>
+      </div>
+    );
 
   return (
     <ul>
       {movies.map(({Title, Year, imdbID, Type, Poster}) => (
         <li key={imdbID}>
           <a href="#">
-            <div className='poster'>
+            <div className="poster">
               <img src={Poster} alt={Title} />
             </div>
-            <div className='text'>
+            <div className="text">
               <div>
-                <h4 className='title'>{Title}</h4>
+                <h4 className="title">{Title}</h4>
                 <p>{Type}</p>
               </div>
               <p>{Year}</p>
