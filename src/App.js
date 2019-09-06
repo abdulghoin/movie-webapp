@@ -1,7 +1,13 @@
 import React from 'react';
 
+import MovieList from './pages/MovieList';
+
 function App() {
-  return <div />;
+  return (
+    <>
+      <MovieList />
+    </>
+  );
 }
 
 export default App;
