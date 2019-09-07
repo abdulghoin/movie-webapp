@@ -19,7 +19,8 @@ const MovieList = ({movieList, getMovieList}) => {
 
   if (page < 1 && isLoading) return <Loader />;
 
-  if (movies.length === 0)
+  let isMoviesArray = Array.isArray(movies);
+  if (!isMoviesArray || (isMoviesArray && movies.length === 0))
     return (
       <div className="empty">
         <span>Search your movie</span>
@@ -28,6 +29,11 @@ const MovieList = ({movieList, getMovieList}) => {
 
   return (
     <ul>
+        <li className="total">
+          <span>{total} Results</span>
+        </li>
+
+
       {movies.map(({Title, Year, imdbID: id, Type, Poster}) => (
         <li key={id}>
           <Link to={`/${id}`}>
