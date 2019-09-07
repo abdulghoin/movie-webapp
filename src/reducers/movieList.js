@@ -21,7 +21,6 @@ export default (state = initialState, action) => {
       return {...state, isLoading: true};
     case FETCH_MOVIE_LIST_SUCCESS:
       let {Search: data, totalResults: total, s: search, page} = payload;
-      console.log(data, page);
       if (page > 1) data = [...state.data, ...data];
       return {...state, isLoading: false, data, total, search, page};
     default:

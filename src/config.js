@@ -1,4 +1,3 @@
-console.log(process.env)
 const env = process.env;
 
 module.exports = {

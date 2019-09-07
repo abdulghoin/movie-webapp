@@ -29,7 +29,6 @@ export const getMovieList = ({search: s = '', page = 1}) => dispatch => {
       },
     })
     .then(({data}) => {
-      console.log(data);
       data = {...data, s, page};
       dispatch(fetchMovieListSuccess(data));
     });
