@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Suspense, lazy} from 'react';
 
 // route implementaion
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
@@ -7,19 +7,25 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import store from './store';
 
+import Loader from './components/Loader';
+
 // Pages
-import MovieList from './pages/MovieList';
-import MovieDetail from './pages/MovieDetail';
+// import MovieList from './pages/MovieList';
+const MovieList = lazy(() => import('./pages/MovieList'));
+// import MovieDetail from './pages/MovieDetail';
+const MovieDetail = lazy(() => import('./pages/MovieDetail'));
 
 function App() {
   return (
     <Provider store={store}>
-      <Router>
-        <Switch>
-          <Route path="/:id" component={MovieDetail} />
-          <Route path="/" component={MovieList} />
-        </Switch>
-      </Router>
+      <Suspense fallback={<Loader />}>
+        <Router>
+          <Switch>
+            <Route path="/:id" component={MovieDetail} />
+            <Route path="/" component={MovieList} />
+          </Switch>
+        </Router>
+      </Suspense>
     </Provider>
   );
 }
