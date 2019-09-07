@@ -1,14 +1,17 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
+
+// redux implementation
+import {connect} from 'react-redux';
+import {getMovieList} from '../actions';
+
+// Icons
 import {MdSearch} from 'react-icons/md';
 
+// Component Style
 import './SearchMovie.css';
 
-import {API, APIKEY} from '../config';
-import axios from 'axios';
-
-const SearchMovie = () => {
+const SearchMovie = ({getMovieList}) => {
   const [search, setSearch] = useState('');
-  const [data, setData] = useState([]);
 
   const onInputChange = e => {
     setSearch(e.target.value);
@@ -16,20 +19,7 @@ const SearchMovie = () => {
 
   const onSearch = e => {
     e.preventDefault();
-
-    axios
-      .get(API, {
-        params: {
-          apikey: APIKEY,
-          s: search,
-        },
-      })
-      .then(res => {
-        console.log(res);
-        const {Search = []} = res.data || {};
-
-        setData(Search);
-      });
+    getMovieList({search});
   };
 
   return (
@@ -44,4 +34,7 @@ const SearchMovie = () => {
   );
 };
 
-export default SearchMovie;
+export default connect(
+  null,
+  {getMovieList},
+)(SearchMovie);

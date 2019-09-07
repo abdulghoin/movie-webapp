@@ -1,83 +1,21 @@
 import React from 'react';
 
+// redux implementation
+import {connect} from 'react-redux';
+import {getMovieList} from '../actions';
+
+// Component Style
 import './MovieList.css';
 
-let movies = [
-  {
-    Title: 'Batman Begins',
-    Year: '2005',
-    imdbID: 'tt0372784',
-    Type: 'movie',
-    Poster:
-      'https://m.media-amazon.com/images/M/MV5BZmUwNGU2ZmItMmRiNC00MjhlLTg5YWUtODMyNzkxODYzMmZlXkEyXkFqcGdeQXVyNTIzOTk5ODM@._V1_SX300.jpg',
-  },
-  {
-    Title: 'Batman Begins',
-    Year: '2005',
-    imdbID: 'tt0372784',
-    Type: 'movie',
-    Poster:
-      'https://m.media-amazon.com/images/M/MV5BZmUwNGU2ZmItMmRiNC00MjhlLTg5YWUtODMyNzkxODYzMmZlXkEyXkFqcGdeQXVyNTIzOTk5ODM@._V1_SX300.jpg',
-  },
-  {
-    Title: 'Batman Begins',
-    Year: '2005',
-    imdbID: 'tt0372784',
-    Type: 'movie',
-    Poster:
-      'https://m.media-amazon.com/images/M/MV5BZmUwNGU2ZmItMmRiNC00MjhlLTg5YWUtODMyNzkxODYzMmZlXkEyXkFqcGdeQXVyNTIzOTk5ODM@._V1_SX300.jpg',
-  },
-  {
-    Title: 'Batman Begins',
-    Year: '2005',
-    imdbID: 'tt0372784',
-    Type: 'movie',
-    Poster:
-      'https://m.media-amazon.com/images/M/MV5BZmUwNGU2ZmItMmRiNC00MjhlLTg5YWUtODMyNzkxODYzMmZlXkEyXkFqcGdeQXVyNTIzOTk5ODM@._V1_SX300.jpg',
-  },
-  {
-    Title: 'Batman Begins',
-    Year: '2005',
-    imdbID: 'tt0372784',
-    Type: 'movie',
-    Poster:
-      'https://m.media-amazon.com/images/M/MV5BZmUwNGU2ZmItMmRiNC00MjhlLTg5YWUtODMyNzkxODYzMmZlXkEyXkFqcGdeQXVyNTIzOTk5ODM@._V1_SX300.jpg',
-  },
-  {
-    Title: 'Batman Begins',
-    Year: '2005',
-    imdbID: 'tt0372784',
-    Type: 'movie',
-    Poster:
-      'https://m.media-amazon.com/images/M/MV5BZmUwNGU2ZmItMmRiNC00MjhlLTg5YWUtODMyNzkxODYzMmZlXkEyXkFqcGdeQXVyNTIzOTk5ODM@._V1_SX300.jpg',
-  },
-  {
-    Title: 'Batman Begins',
-    Year: '2005',
-    imdbID: 'tt0372784',
-    Type: 'movie',
-    Poster:
-      'https://m.media-amazon.com/images/M/MV5BZmUwNGU2ZmItMmRiNC00MjhlLTg5YWUtODMyNzkxODYzMmZlXkEyXkFqcGdeQXVyNTIzOTk5ODM@._V1_SX300.jpg',
-  },
-  {
-    Title: 'Batman Begins',
-    Year: '2005',
-    imdbID: 'tt0372784',
-    Type: 'movie',
-    Poster:
-      'https://m.media-amazon.com/images/M/MV5BZmUwNGU2ZmItMmRiNC00MjhlLTg5YWUtODMyNzkxODYzMmZlXkEyXkFqcGdeQXVyNTIzOTk5ODM@._V1_SX300.jpg',
-  },
-  {
-    Title: 'Batman Begins',
-    Year: '2005',
-    imdbID: 'tt0372784',
-    Type: 'movie',
-    Poster:
-      'https://m.media-amazon.com/images/M/MV5BZmUwNGU2ZmItMmRiNC00MjhlLTg5YWUtODMyNzkxODYzMmZlXkEyXkFqcGdeQXVyNTIzOTk5ODM@._V1_SX300.jpg',
-  },
-];
+import Loader from './Loader';
 
-const MovieList = () => {
+const MovieList = ({movieList, getMovieList}) => {
+  const {data: movies, search, page, total, isLoading} = movieList;
+
+  const onLoadMore = () => getMovieList({search, page: page + 1});
+
+  if (page < 1 && isLoading) return <Loader />;
+
   if (movies.length === 0)
     return (
       <div className="empty">
@@ -103,8 +41,16 @@ const MovieList = () => {
           </a>
         </li>
       ))}
+      {movies.length < total && (
+        <li className="load-more" onClick={onLoadMore}>
+          {isLoading ? <Loader /> : <span>more</span>}
+        </li>
+      )}
     </ul>
   );
 };
 
-export default MovieList;
+export default connect(
+  ({movieList}) => ({movieList}),
+  {getMovieList},
+)(MovieList);

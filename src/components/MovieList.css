@@ -15,18 +15,33 @@ li {
 	display: inline-block;
 }
 
+li.load-more {
+	margin: 0.5rem auto;
+	width: 4rem;
+	height: 4rem;
+	border: 1px solid gray;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+}
+
 li > a {
 	display: flex;
 	padding: 0.75rem;
 	margin: 0.5rem;
 	border-radius: 0.5rem;
-	box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.5);
-	transition: box-shadow 0.5s ease;
 	color: inherit;
 	text-decoration: none;
 }
 
-li > a:hover {
+li > a, li.load-more {
+	box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.5);
+	transition: box-shadow 0.5s ease;
+}
+
+li > a:hover, li.load-more:hover {
 	box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.7);
 }
 
