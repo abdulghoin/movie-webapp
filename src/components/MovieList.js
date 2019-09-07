@@ -4,6 +4,9 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {getMovieList} from '../actions';
 
+// route link
+import {Link} from 'react-router-dom';
+
 // Component Style
 import './MovieList.css';
 
@@ -25,9 +28,9 @@ const MovieList = ({movieList, getMovieList}) => {
 
   return (
     <ul>
-      {movies.map(({Title, Year, imdbID, Type, Poster}) => (
-        <li key={imdbID}>
-          <a href="#">
+      {movies.map(({Title, Year, imdbID: id, Type, Poster}) => (
+        <li key={id}>
+          <Link to={`/${id}`}>
             <div className="poster">
               <img src={Poster} alt={Title} />
             </div>
@@ -38,7 +41,7 @@ const MovieList = ({movieList, getMovieList}) => {
               </div>
               <p>{Year}</p>
             </div>
-          </a>
+          </Link>
         </li>
       ))}
       {movies.length < total && (
