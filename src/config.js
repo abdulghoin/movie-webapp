@@ -1,3 +1,7 @@
+console.log(process.env)
+const env = process.env;
+
 module.exports = {
-	API: process.env.REACT_APP_API
+	API: env.REACT_APP_API,
+	APIKEY: env.REACT_APP_APIKEY
 }
