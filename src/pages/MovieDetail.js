@@ -3,9 +3,9 @@ import React, {useState, useEffect} from 'react';
 // route link
 import {Link} from 'react-router-dom';
 
-// redux implementation
-import {connect} from 'react-redux';
-import {getMovieDetail} from '../actions';
+// Interation w API
+import axios from 'axios';
+import {API, APIKEY} from '../config';
 
 // Component Style
 import './MovieDetail.css';
@@ -18,13 +18,18 @@ const MovieDetail = ({
   match: {
     params: {id},
   },
-  getMovieDetail,
-  movieDetail,
 }) => {
+  const [data, setData] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const {isLoading, data} = movieDetail;
 
-  useEffect(() => getMovieDetail(id), [id]);
+  useEffect(() => {
+    setIsLoading(true);
+    axios.get(API, {params: {apikey: APIKEY, i: id}}).then(({data}) => {
+      setData(data);
+      setIsLoading(false);
+    });
+  }, [id]);
 
   const toggleDialog = () => setIsDialogOpen(!isDialogOpen);
 
@@ -48,7 +53,7 @@ const MovieDetail = ({
     Writer,
     Actors,
     Awards,
-  } = data || {};
+  } = data;
   const list = {
     Type,
     Released,
@@ -106,7 +111,4 @@ const renderList = ({list, listClass}) => (
   </ul>
 );
 
-export default connect(
-  ({movieDetail}) => ({movieDetail}),
-  {getMovieDetail},
-)(MovieDetail);
+export default MovieDetail;
