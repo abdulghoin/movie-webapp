@@ -6,13 +6,11 @@
 }
 
 ul {
-	list-style-type: none;
 	width: 100%;
 }
 
 li {
 	width: 100%;
-	display: inline-block;
 }
 
 li.total {
